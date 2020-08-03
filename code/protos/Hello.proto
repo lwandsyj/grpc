@@ -1,0 +1,21 @@
+
+syntax = 'proto3';
+
+
+package Hello;
+
+message Request {
+    string name =1;
+    int32 age = 2;
+
+}
+
+message Response {
+    string name = 1 [default=4];
+    int32 age = 2;
+}
+
+service Hello {
+    rpc sayHello (Request) returns (Response);
+    rpc create (Request) returns (Response);
+}

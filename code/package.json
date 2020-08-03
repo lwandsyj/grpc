@@ -1,0 +1,26 @@
+{
+  "name": "grpc-code",
+  "version": "1.0.0",
+  "description": "grpc",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"nodemon test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lwandsyj/grpc.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lwandsyj/grpc/issues"
+  },
+  "homepage": "https://github.com/lwandsyj/grpc#readme",
+  "dependencies": {
+    "@grpc/proto-loader": "^0.5.5",
+    "grpc": "^1.24.3",
+    "nodemon": "^2.0.4"
+  }
+}
