@@ -43,6 +43,7 @@
                     const serviceName = fileInfo.name;
                     const packageName = fileInfo.name;
                     const protoPath = path.join(protodir,file);
+                    console.log(protoPath)
                     const definition = protoloader.loadSync(protoPath,{
                         keepCase:true,
                         enums:String,
@@ -51,7 +52,7 @@
                         oneofs:true
                     });
                     const proto = grpc.loadPackageDefinition(definition);
-
+                    
                     const service = proto[packageName][serviceName].service;
                     const handlePath = path.join(functionDir,fileInfo.name);
                     console.log(functionDir)
