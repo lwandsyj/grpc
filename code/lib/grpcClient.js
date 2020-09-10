@@ -14,7 +14,19 @@ const path = require('path');
 const fs = require('fs')
 const grpc = require('grpc');
 const protoloader = require('@grpc/proto-loader')
-
+function covertToPromise(fn,obj){
+    return (params)=>{
+        return new Promise((resolve,reject)=>{
+            const args =[params,(err,res)=>{
+                if(err){
+                    reject(err)
+                }
+                resolve(res);
+            }];
+            fn.apply(obj,args)
+        })
+    }
+}
 class RpcClient {
     /**
      * 构造函数
@@ -44,8 +56,15 @@ class RpcClient {
                 const deifinition = protoloader.loadSync(protoPath);
                 // 获取package
                 const protoPackage = grpc.loadPackageDefinition(deifinition)[packageName];
+                
                 // 实例化
                 this.clients[serviceName] = new protoPackage[serviceName](`${this.ip}:${this.port}`, grpc.credentials.createInsecure());
+                const services =Object.values(protoPackage[serviceName].service);
+                //方法加上methodpromise 
+                services.forEach(item=>{
+                    item = item.originalName;
+                    this.clients[serviceName][`${item}Promise`]=covertToPromise(this.clients[serviceName][item],this.clients[serviceName]);
+                });
             })
         } catch (ex) {
             throw ex;
@@ -53,4 +72,4 @@ class RpcClient {
     }
 }
 
-module.exports = new RpcClient('localhost', 5005)
+module.exports=RpcClient;

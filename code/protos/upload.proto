@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package upload;
+
+
+message BytesContent {
+    string fileName=1;
+    bytes content=2;
+}
+message fileInfo{
+    string fileName=1;
+}
+service upload {
+    rpc upload (BytesContent) returns (fileInfo);
+}
+
